@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bootstrap Boilerplate</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <script src="https://www.youtube.com/iframe_api"></script>
+  </head>
+  <body>
+    <!-- Your content goes here -->
+    <div id="player"></div>
+    <script>
+      // Variables to store the YouTube player and video ID
+      var player;
+      var videoId = "TWb_haX-hag"; // Replace with your actual video ID
+
+      // Function called when the YouTube API is ready
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player("player", {
+          height: "360", // Set the desired height
+          width: "640", // Set the desired width
+          videoId: videoId,
+          events: {
+            onReady: onPlayerReady,
+          },
+        });
+      }
+
+      // Function called when the player is ready
+      function onPlayerReady(event) {
+        // Play the video
+        event.target.playVideo();
+
+        // Set a timeout to stop the video at a specific time (in milliseconds)
+        setTimeout(reloadIframe, 30000); // Reload the entire iframe after 30 seconds
+      }
+
+      // Function to stop the video at a specific time and reload the entire iframe
+      function reloadIframe() {
+        // Stop the video at the desired time (in seconds)
+        player.seekTo(30, true); // Replace 30 with the time in seconds to stop at
+
+        // Pause the video
+        player.pauseVideo();
+
+        // Reload the entire iframe
+        var iframe = document.getElementById("player");
+        iframe.parentNode.replaceChild(iframe.cloneNode(), iframe);
+      }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
